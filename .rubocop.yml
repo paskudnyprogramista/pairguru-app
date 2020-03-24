@@ -1,4 +1,5 @@
 AllCops:
+  TargetRubyVersion: 2.5.1
   Include:
   - "**/*.rake"
   - "**/Gemfile"
@@ -7,6 +8,8 @@ AllCops:
   - "vendor/**/*"
   - "db/**/*"
   - "config/environments/**/*"
+  - 'bin/**/*'
+  - 'vendor/bundle/**/*'
   DisplayCopNames: false
   StyleGuideCopsOnly: false
 Rails:
@@ -512,7 +515,7 @@ Metrics/LineLength:
   Description: Limit lines to 100 characters.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#80-character-limits
   Enabled: true
-  Max: 100
+  Max: 120
   AllowURI: true
   URISchemes:
   - http
