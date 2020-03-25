@@ -3,11 +3,10 @@
 require 'rails_helper'
 
 describe 'API V1 Movies', type: :request do
-  let(:genre) { create(:genre) }
-  let(:genre_movies) { genre.movies }
-  let!(:kill_bill_vol_1_movie) { create(:movie, title: 'Kill Bill vol. 1', genre: genre) }
-  let!(:kill_bill_vol_2_movie) { create(:movie, title: 'Kill Bill vol. 2', genre: genre) }
-  let(:movies) { [kill_bill_vol_1_movie, kill_bill_vol_2_movie] }
+  let(:action_genre) { create(:genre) }
+  let(:action_genre_movies) { action_genre.movies }
+  let!(:kill_bill_vol_1_movie) { create(:movie, title: 'Kill Bill vol. 1', genre: action_genre) }
+  let!(:kill_bill_vol_2_movie) { create(:movie, title: 'Kill Bill vol. 2', genre: action_genre) }
 
   describe 'movies#index' do
     context 'general' do
@@ -35,7 +34,7 @@ describe 'API V1 Movies', type: :request do
           "relationships": {
             "genre": {
               "data": {
-                "id": genre.id.to_s,
+                "id": action_genre.id.to_s,
                 "type": 'genre'
               },
               "links": {
@@ -49,15 +48,15 @@ describe 'API V1 Movies', type: :request do
       let(:expected_included_json) do
         [
           {
-            'id': genre.id.to_s,
+            'id': action_genre.id.to_s,
             'type': 'genre',
             'attributes': {
-              'id': genre.id.to_s,
-              'name': genre.name
+              'id': action_genre.id.to_s,
+              'name': action_genre.name
             },
             'relationships': {
               'movies': {
-                'data': genre.movies.map do |movie|
+                'data': action_genre.movies.map do |movie|
                   {
                     'id': movie.id.to_s,
                     'type': 'movie'
@@ -69,7 +68,7 @@ describe 'API V1 Movies', type: :request do
               }
             },
             'meta': {
-              'movies_count': genre_movies.count.to_s
+              'movies_count': action_genre_movies.count.to_s
             }
           }
         ]
@@ -83,7 +82,7 @@ describe 'API V1 Movies', type: :request do
         expect(json_response['data']).to include_json(expected_data_json)
       end
 
-      it 'returns movie included genres' do
+      it 'returns included genres' do
         expect(json_response['included']).to include_json(expected_included_json)
       end
     end
