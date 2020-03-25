@@ -3,7 +3,7 @@
 class Api::V1::MovieSerializer < BaseSerializer
   set_type :movie
 
-  attributes :id, :title
+  attributes :title
 
   belongs_to :genre, links: {
     self: ->(_resource) {

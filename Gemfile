@@ -40,5 +40,6 @@ group :development, :test do
 end
 
 group :test do
+  gem 'rspec-json_expectations'
   gem 'shoulda-matchers'
 end
