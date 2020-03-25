@@ -48,7 +48,27 @@ describe 'API V1 Genres', type: :request do
       end
 
       let(:expected_included_json) do
-        []
+        action_genre.movies.map do |movie|
+          {
+            'id': movie.id.to_s,
+            'type': 'movie',
+            'attributes': {
+              'id': movie.id.to_s,
+              'title': movie.title
+            },
+            "relationships": {
+              "genre": {
+                "data": {
+                  "id": action_genre.id.to_s,
+                  "type": 'genre'
+                },
+                "links": {
+                  "self": 'http://example/api/v1/genres'
+                }
+              }
+            }
+          }
+        end
       end
 
       before { get "/api/v1/genres/#{action_genre.id}" }
