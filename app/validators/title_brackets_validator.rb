@@ -2,7 +2,9 @@
 
 class TitleBracketsValidator < ActiveModel::Validator
   ERROR_MESSAGE = 'Make sure that all brackets in title are closed and not empty'
-  BRACKETS = { '(' => ')', '[' => ']', '{' => '}', '<' => '>' }.freeze
+  BRACKETS_LEFT_SIDE = ['(', '[', '{', '<'].freeze
+  BRACKETS_RIGHT_SIDE = [')', ']', '}', '>'].freeze
+  BRACKETS_PAIRS = { '(' => ')', '[' => ']', '{' => '}', '<' => '>' }.freeze
   EMPTY_BRACKETS = ['()', '[]', '{}'].freeze
 
   def validate(record)
@@ -13,14 +15,12 @@ class TitleBracketsValidator < ActiveModel::Validator
 
   def brackets_balance(record)
     stack = []
-    left_brackets = BRACKETS.keys
-    right_brackets = BRACKETS.values
 
     record.title.each_char do |char|
-      if left_brackets.include? char
+      if BRACKETS_LEFT_SIDE.include? char
         stack << char
-      elsif right_brackets.include? char
-        return false if stack.empty? || (BRACKETS[stack.pop] != char)
+      elsif BRACKETS_RIGHT_SIDE.include? char
+        return false if stack.empty? || (BRACKETS_PAIRS[stack.pop] != char)
       end
     end
 
