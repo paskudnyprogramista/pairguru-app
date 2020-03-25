@@ -1,6 +1,6 @@
-host = ENV.fetch("DEFAULT_URL_HOST")
+host = ENV.fetch('DEFAULT_URL_HOST')
 
-protocol = Rails.application.config.force_ssl ? "https" : "http"
+protocol = Rails.application.config.force_ssl ? 'https' : 'http'
 
 Rails.application.routes.default_url_options.merge!(
   host: host,

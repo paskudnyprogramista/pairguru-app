@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  root "home#welcome"
+  root 'home#welcome'
 
   resources :genres, only: :index do
     member do
-      get "movies"
+      get 'movies'
     end
   end
 
