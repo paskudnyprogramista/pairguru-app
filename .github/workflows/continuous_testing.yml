@@ -17,6 +17,7 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: 2.6.5
+      - run: gem install rubocop-rails
       - name: Rubocop checks
         uses: gimenete/rubocop-action@1.0
         env:
