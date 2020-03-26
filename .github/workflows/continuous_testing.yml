@@ -16,6 +16,6 @@ jobs:
       - name: Setup Ruby
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: ${{ env.RUBY_VERSION }}
+          ruby-version: 2.6.5
       - name: Rubocop checks
         uses: gimenete/rubocop-action@1.0
