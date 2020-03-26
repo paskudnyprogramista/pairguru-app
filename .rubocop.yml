@@ -1,15 +1,13 @@
+require:
+  - rubocop-rails
+
 AllCops:
   TargetRubyVersion: 2.5.1
-  Include:
-  - "**/*.rake"
-  - "**/Gemfile"
-  - "**/Rakefile"
   Exclude:
-  - "vendor/**/*"
-  - "db/**/*"
-  - "config/environments/**/*"
+  - 'vendor/**/*'
+  - 'db/**/*'
+  - 'config/environments/**/*'
   - 'bin/**/*'
-  - 'vendor/bundle/**/*'
   DisplayCopNames: false
   StyleGuideCopsOnly: false
 Rails:
@@ -22,7 +20,7 @@ Layout/AccessModifierIndentation:
   SupportedStyles:
   - outdent
   - indent
-Layout/AlignHash:
+Layout/HashAlignment:
   Description: Align the elements of a hash literal if they span more than one line.
   Enabled: true
   EnforcedHashRocketStyle: key
@@ -33,7 +31,7 @@ Layout/AlignHash:
   - always_ignore
   - ignore_implicit
   - ignore_explicit
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   Description: Align the parameters of a method call if they span more than one line.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-double-indent
   Enabled: true
@@ -57,14 +55,6 @@ Style/BarePercentLiterals:
   SupportedStyles:
   - percent_q
   - bare_percent
-Style/BracesAroundHashParameters:
-  Description: Enforce braces style around hash parameters.
-  Enabled: true
-  EnforcedStyle: no_braces
-  SupportedStyles:
-  - braces
-  - no_braces
-  - context_dependent
 Layout/CaseIndentation:
   Description: Indentation of when in a case/when/[else/]end.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#indent-when-to-case
@@ -156,11 +146,19 @@ Naming/FileName:
 Layout/FirstParameterIndentation:
   Description: Checks the indentation of the first parameter in a method call.
   Enabled: true
-  EnforcedStyle: special_for_inner_method_call_in_parentheses
+  EnforcedStyle: consistent
   SupportedStyles:
   - consistent
-  - special_for_inner_method_call
-  - special_for_inner_method_call_in_parentheses
+  - align_parentheses
+Style/HashEachMethods:
+  Description: This cop checks for uses of each_key and each_value Hash methods.
+  Enabled: true
+Style/HashTransformKeys:
+  Description: This cop checks for uses of access modifiers.
+  Enabled: true
+Style/HashTransformValues:
+  Description: This cop looks for uses of _.each_with_object({}) {...}, _.map {...}.to_h, and Hash[_.map {...}] that are actually just transforming the values of a hash, and tries to use a simpler & faster call to transform_values instead.
+  Enabled: true
 Style/For:
   Description: Checks use of for or each in multiline loops.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-for-loops
@@ -206,7 +204,7 @@ Layout/IndentationWidth:
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#spaces-indentation
   Enabled: true
   Width: 2
-Layout/IndentHash:
+Layout/FirstHashElementIndentation:
   Description: Checks the indentation of the first key in a hash literal.
   Enabled: true
   EnforcedStyle: special_inside_parentheses
@@ -297,7 +295,7 @@ Naming/PredicateName:
   - is_
   - has_
   - have_
-  NamePrefixBlacklist:
+  ForbiddenPrefixes:
   - is_
 Style/RaiseArgs:
   Description: Checks the arguments passed to raise/fail.
@@ -412,7 +410,7 @@ Style/SymbolProc:
   Enabled: true
   IgnoredMethods:
   - respond_to
-Layout/TrailingBlankLines:
+Layout/TrailingEmptyLines:
   Description: Checks trailing blank lines and final newline.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#newline-eof
   Enabled: true
@@ -451,7 +449,7 @@ Style/TrivialAccessors:
   ExactNameMatch: false
   AllowPredicates: false
   AllowDSLWriters: false
-  Whitelist:
+  AllowedMethods:
   - to_ary
   - to_a
   - to_c
@@ -511,7 +509,7 @@ Metrics/CyclomaticComplexity:
     cases needed to validate a method.
   Enabled: true
   Max: 6
-Metrics/LineLength:
+Layout/LineLength:
   Description: Limit lines to 100 characters.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#80-character-limits
   Enabled: true
@@ -618,7 +616,7 @@ Style/Alias:
   Description: Use alias_method instead of alias.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#alias-method
   Enabled: false
-Layout/AlignArray:
+Layout/ArrayAlignment:
   Description: Align the elements of an array literal if they span more than one line.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#align-multiline-arrays
   Enabled: true
@@ -734,7 +732,7 @@ Style/EvenOdd:
   Description: Favor the use of Fixnum#even? && Fixnum#odd?
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#predicate-methods
   Enabled: false
-Style/FlipFlop:
+Lint/FlipFlop:
   Description: Checks for flip flops
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-flip-flops
   Enabled: false
@@ -745,7 +743,7 @@ Style/IfWithSemicolon:
 Layout/IndentationConsistency:
   Description: Keep indentation straight.
   Enabled: true
-Layout/IndentArray:
+Layout/FirstArrayElementIndentation:
   Description: Checks the indentation of the first element in an array literal.
   Enabled: true
 Style/InfiniteLoop:
@@ -840,10 +838,6 @@ Style/SelfAssignment:
     used.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#self-assignment
   Enabled: false
-Layout/SpaceBeforeFirstArg:
-  Description: Checks that exactly one space is used between a method name and the
-    first argument for method calls without parentheses.
-  Enabled: true
 Layout/SpaceAfterColon:
   Description: Use spaces after colons.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#spaces-operators
@@ -851,9 +845,6 @@ Layout/SpaceAfterColon:
 Layout/SpaceAfterComma:
   Description: Use spaces after commas.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#spaces-operators
-  Enabled: true
-Layout/SpaceAroundKeyword:
-  Description: Use spaces after if/elsif/unless/while/until/case/when.
   Enabled: true
 Layout/SpaceAfterMethodName:
   Description: Do not put a space between a method name and the opening parenthesis
@@ -912,10 +903,10 @@ Style/UnlessElse:
   Description: Do not use unless with else. Rewrite these with the positive case first.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-else-with-unless
   Enabled: true
-Style/UnneededCapitalW:
+Style/RedundantCapitalW:
   Description: Checks for %W when interpolation is not needed.
   Enabled: true
-Style/UnneededPercentQ:
+Style/RedundantPercentQ:
   Description: Checks for %q/%Q when single quotes or double quotes would do.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#percent-q
   Enabled: true
@@ -981,7 +972,7 @@ Lint/EnsureReturn:
 Security/Eval:
   Description: The use of eval represents a serious security risk.
   Enabled: true
-Lint/HandleExceptions:
+Lint/SuppressedException:
   Description: Don't suppress exception.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#dont-hide-exceptions
   Enabled: false
@@ -1012,14 +1003,14 @@ Layout/SpaceBeforeFirstArg:
   Description: Put a space between a method name and the first argument in a method
     call without parentheses.
   Enabled: true
-Lint/StringConversionInInterpolation:
+Lint/RedundantStringCoercion:
   Description: Checks for Object#to_s usage in string interpolation.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-to-s
   Enabled: true
 Lint/UnderscorePrefixedVariableName:
   Description: Do not use prefix `_` for a variable that is used.
   Enabled: false
-Lint/UnneededCopDisableDirective:
+Lint/RedundantCopDisableDirective:
   Enabled: false
 Lint/UnusedBlockArgument:
   Description: Checks for unused block arguments.

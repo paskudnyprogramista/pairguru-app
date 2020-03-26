@@ -35,7 +35,8 @@ group :development, :test do
   gem 'faker'
   gem 'listen'
   gem 'rspec-rails'
-  gem 'rubocop'
+  gem 'rubocop', '~> 0.80.1', require: false
+  gem 'rubocop-rails', require: false
   gem 'simplecov'
 end
 
