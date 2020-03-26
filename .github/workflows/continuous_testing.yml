@@ -20,5 +20,6 @@ jobs:
       - name: Execute Rubocop
         run: |
           gem install bundler
-# bundle install --with=continuouse_testing --jobs 4 --retry 3
-# bundle exec rubocop
+          gem install bundle-only
+          bundle-only install continuouse_testing
+          bundle exec rubocop
