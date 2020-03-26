@@ -35,12 +35,15 @@ group :development, :test do
   gem 'faker'
   gem 'listen'
   gem 'rspec-rails'
-  gem 'rubocop', '~> 0.80.1', require: false
-  gem 'rubocop-rails', require: false
   gem 'simplecov'
 end
 
 group :test do
   gem 'rspec-json_expectations'
   gem 'shoulda-matchers'
+end
+
+group :development, :test, :continuouse_testing do
+  gem 'rubocop', '~> 0.80.1', require: false
+  gem 'rubocop-rails', require: false
 end
