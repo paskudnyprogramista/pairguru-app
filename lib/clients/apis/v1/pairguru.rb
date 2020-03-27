@@ -39,7 +39,7 @@ class Clients::Apis::V1::Pairguru
     end
 
     def movie_api_url(title:)
-      URI.join("#{movies_api_url}/", URI.escape(title).to_s)
+      URI.join("#{movies_api_url}/", CGI.escape(title).to_s)
     end
 
     def movies_api_url
