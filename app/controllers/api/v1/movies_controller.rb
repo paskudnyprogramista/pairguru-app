@@ -15,7 +15,6 @@ class Api::V1::MoviesController < Api::V1::BaseController
     Movie.find(params[:id])
   end
 
-  # TODO: Consider using Ransack
   def collection
     Movie.all
   end

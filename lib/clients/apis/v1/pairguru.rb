@@ -9,7 +9,7 @@ class Clients::Apis::V1::Pairguru
     include Dry::Monads[:try, :result]
 
     def get_movie_by_title(title)
-      url = [movies_url, title].join('/')
+      url = movie_api_url(title: title)
 
       get_movie(url).bind do |http_response|
         check_code(http_response.code).bind do
@@ -38,8 +38,16 @@ class Clients::Apis::V1::Pairguru
       @client ||= HTTP.timeout(CONECTION_TIMEOUT)
     end
 
-    def movies_url
-      [ENV.fetch('PAIRGURU_BASE_API_URL'), API_VERSION, MOVIES_ENDPOINT].join('/')
+    def movie_api_url(title:)
+      URI.join("#{movies_api_url}/", URI.escape(title).to_s)
+    end
+
+    def movies_api_url
+      URI.join("#{pairguru_base_api_url}/#{API_VERSION}/#{MOVIES_ENDPOINT}")
+    end
+
+    def pairguru_base_api_url
+      ENV.fetch('PAIRGURU_BASE_API_URL')
     end
 
     def decode_payload(code, body)
