@@ -1,7 +1,15 @@
-%h1= @movie.title
-.jumbotron
-  = @movie.description
-  = @movie.rating
-  = @movie.cover
+%div.center-block.card{ style: "width: 72rem;" }
+  %div.card-body
+    .jumbotron
+      %h1.card-title.text-center
+        = @movie.title
+  %img.card-img-top{ src: @movie.cover, style: "width:100%" }
+  %div.card-body
+    .jumbotron
+      %p.lead
+        = @movie.description
+      %p.lead
+        = 'Rating: '
+        = @movie.rating
 - if user_signed_in?
   %p= link_to 'Email me details about this movie', send_info_movie_path(@movie), class: 'btn btn-sm btn-default'

@@ -13,4 +13,8 @@ class MovieDecorator < Draper::Decorator
   def description
     context['plot']
   end
+
+  def release_date
+    object.released_at.to_datetime.strftime('%d-%m-%Y')
+  end
 end
