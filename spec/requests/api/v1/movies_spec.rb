@@ -5,6 +5,7 @@ require 'rails_helper'
 describe 'API V1 Movies', type: :request do
   let(:action_genre) { create(:genre) }
   let(:action_genre_movies) { action_genre.movies }
+
   let!(:kill_bill_vol_1_movie) { create(:movie, title: 'Kill Bill vol. 1', genre: action_genre) }
   let!(:kill_bill_vol_2_movie) { create(:movie, title: 'Kill Bill vol. 2', genre: action_genre) }
 
@@ -84,6 +85,20 @@ describe 'API V1 Movies', type: :request do
 
       it 'returns included genres' do
         expect(json_response['included']).to include_json(expected_included_json)
+      end
+    end
+
+    context 'when record not found' do
+      before { get '/api/v1/movies/1000' }
+
+      let(:expected_error_json) do
+        {
+          'error': 'resource_not_found'
+        }
+      end
+
+      it 'returns error message' do
+        expect(json_response).to include_json(expected_error_json)
       end
     end
   end
