@@ -15,7 +15,6 @@ class Api::V1::GenresController < Api::V1::BaseController
     Genre.find(params[:id])
   end
 
-  # TODO: Consider using Ransack
   def collection
     Genre.all
   end

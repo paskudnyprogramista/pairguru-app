@@ -19,7 +19,6 @@ class Api::V1::BaseController < ActionController::API
     render json: yield, status: status, content_type: CONTENT_TYPE
   end
 
-  # TODO: Check if error message is valid agaist API blueprints
   def render_error_payload(error, status = 422)
     render json: { error: error }, status: status, content_type: CONTENT_TYPE
   end
