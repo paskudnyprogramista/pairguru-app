@@ -6,14 +6,13 @@ class Clients::Apis::V1::Pairguru
   MOVIES_ENDPOINT = 'movies'
 
   class << self
-    include Dry::Monads[:try]
-    include Dry::Monads[:result]
+    include Dry::Monads[:try, :result]
 
     def get_movie_by_title(title)
       url = [movies_url, title].join('/')
 
       get_movie(url).bind do |http_response|
-        check_code(http_response.code, http_response.body).bind do
+        check_code(http_response.code).bind do
           decode_payload(http_response.code, http_response.body)
         end
       end
